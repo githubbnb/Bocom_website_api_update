@@ -1,0 +1,48 @@
+# Spring Boot configuration
+spring:
+  # JPA properties
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  # Database
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:bocom-api}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
+    driverClassName: com.mysql.cj.jdbc.Driver
+  # Jackson
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  # Multipart request
+  servlet:
+    multipart:
+      max-file-size: 100000000MB
+      max-request-size: 100000000MB
+  # Name application
+  application:
+    name: bocom-administration-service
+
+api:
+  version: 1.0
+  description: Application de gestion des activités de bocom
+  server:
+    description: Developpement
+    url: http://localhost:8080/
+
+
+# Security configuration
+security:
+  basic:
+    enabled: false
+  keys: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecureaaaasasazdzezerezzezersdvvxcvxcvcvvbcvvgfgfdgfdgddfgdfgdrrerzzezsdaazsqsqssxqqxdvfdvgbyhnukikiiuouiouyjjghfgfghgfhyjukuykiliolpjyjtyhhthzdzezerezzezersdvvxcvxcvcvvbcvvgfgfdgfdgddfgdfgdrrerzzezsdaazsqsqssxqqxdvfdvgbyhzdzezerezzezersdvvxcvxcvcvvbcvvgfgfdgfdgddfgdfgdrrerzzezsdaazsqsqssxqqxdvfdvgbyh
+
+# Token validity time configuration
+token:
+  access:
+    time: 1008000
+  refresh:
+    time: 901600000

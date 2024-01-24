@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  database:
+    image: mysql:5.7
+    restart: always
+    networks:
+      - springapimysql-net
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bocom_administration
+      - MYSQL_USER=bocom
+      - MYSQL_PASSWORD=bocom
+    volumes:
+      - "./mysql/conf.d:/etc/mysql/conf.d"
+
+  bocom_manager_api:
+    build: ./bocomManager
+    ports:
+      - 8088:8080
+    networks:
+      - springapimysql-net
+    depends_on:
+      - database
+      - kafka
+    volumes:
+      - bocom_manager:/data/bocom_manager
+    environment:
+      # MYSQL_USERNAME: bocom
+      # MYSQL_HOST: database
+      # MYSQL_PASSWORD: bocom
+      # MYSQL_DATABASE: bocom_administration
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/bocom_administration?autoReconnect=true&useSSL=false
+      KAFKA_BOOTSTRAPADDRESS: http://kafka:9092
+      SPRING_PROFILES_ACTIVE: dev
+
+networks:
+  springapimysql-net:
+
+
+volumes:
+  bocom_manager:
+  mysql:

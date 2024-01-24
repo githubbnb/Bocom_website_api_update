@@ -1,0 +1,56 @@
+# Spring Boot configuration
+spring:
+  # JPA properties
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  # Database
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/bocom-api?createDatabaseIfNotExist=true
+    username: root
+    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  # Jackson
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  # Multipart request
+  servlet:
+    multipart:
+      max-file-size: 100000000MB
+      max-request-size: 100000000MB
+  # Name application
+  application:
+    name: bocom-administration-service
+
+api:
+  version: 1.0
+  description: Application de gestion des activités de bocom
+  server:
+    description: Developpement
+    url: http://localhost:8080/
+
+
+# Security configuration
+security:
+  basic:
+    enabled: false
+  keys: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecureaaaasasazdzezerezzezersdvvxcvxcvcvvbcvvgfgfdgfdgddfgdfgdrrerzzezsdaazsqsqssxqqxdvfdvgbyhnukikiiuouiouyjjghfgfghgfhyjukuykiliolpjyjtyhhthzdzezerezzezersdvvxcvxcvcvvbcvvgfgfdgfdgddfgdfgdrrerzzezsdaazsqsqssxqqxdvfdvgbyhzdzezerezzezersdvvxcvxcvcvvbcvvgfgfdgfdgddfgdfgdrrerzzezsdaazsqsqssxqqxdvfdvgbyh
+
+# Token validity time configuration
+token:
+  access:
+    time: 100800
+  refresh:
+    time: 9016000
+
+#Email Config
+EMAIL_HOST: smtp.gmail.com
+EMAIL_PORT: 587
+EMAIL_ID: borelmba@gmail.com
+EMAIL_PASSWORD: kxyi rybx olvk hxkw
+VERIFY_EMAIL_HOST: http://localhost:3306
